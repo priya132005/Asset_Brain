@@ -6,9 +6,7 @@
 
 **ET AI Hackathon 2026 • Problem Statement 8**
 
-Transforming fragmented industrial documents into an intelligent, queryable knowledge system powered by AI and Knowledge Graphs.
-
-[🎥 Demo Video](#) • [📄 Architecture](#) • [🚀 Presentation](#)
+Transforming fragmented industrial documents into an intelligent, searchable, and explainable knowledge system powered by AI, RAG, and Knowledge Graphs.
 
 </div>
 
@@ -16,17 +14,9 @@ Transforming fragmented industrial documents into an intelligent, queryable know
 
 ## 📌 Overview
 
-Industrial organizations generate thousands of documents every year—OEM manuals, work orders, inspection reports, incident reports, SOPs, emails, and regulatory guidelines.
+Industrial organizations generate vast amounts of information across OEM manuals, maintenance records, inspection reports, incident reports, SOPs, emails, and regulatory documents. These datasets are typically siloed, making knowledge retrieval difficult and time-consuming.
 
-These documents often remain siloed across departments, making knowledge retrieval slow, inefficient, and error-prone.
-
-**ASSET BRAIN** unifies these disconnected information sources into a single intelligent platform that enables engineers, operators, maintenance teams, and auditors to:
-
-* 🔍 Search organizational knowledge instantly
-* 🛠 Perform Root Cause Analysis (RCA)
-* 📋 Detect compliance gaps automatically
-* 🧠 Explore relationships through a Knowledge Graph
-* 📚 Retrieve evidence-backed answers with citations
+**ASSET BRAIN** unifies these disconnected sources into a single AI-powered intelligence platform that enables users to search organizational knowledge, investigate incidents, analyze compliance, and discover hidden relationships between assets, people, and documents.
 
 ---
 
@@ -35,54 +25,58 @@ These documents often remain siloed across departments, making knowledge retriev
 ### 🤖 Expert Knowledge Copilot
 
 * Retrieval-Augmented Generation (RAG)
-* Source-backed answers with citations
-* Confidence scoring for transparency
+* Evidence-backed answers with citations
+* Confidence scoring
 * Context-aware industrial Q&A
 
-### 🔧 Maintenance Intelligence & RCA Agent
+### 🔧 Maintenance Intelligence & RCA
 
-* Correlates work orders, inspections, incidents, and OEM manuals
-* Identifies probable root causes
-* Generates predictive risk assessments
-* Recommends corrective actions
+* Correlates incidents, inspections, work orders, and manuals
+* Root cause identification
+* Risk assessment
+* Corrective action recommendations
 
-### 📑 Compliance Intelligence Agent
+### 📑 Compliance Intelligence
 
-* Maps regulations against operational records
-* Detects missing evidence and compliance gaps
+* Maps regulations to operational records
+* Detects compliance gaps
 * Generates audit-ready findings
-* Produces structured compliance reports
 
 ### 🕸 Knowledge Graph Explorer
 
-* Interactive visualization of industrial knowledge
-* Connects:
-
-  * Documents
-  * Equipment
-  * Personnel
-  * Regulatory clauses
-* Enables relationship discovery and impact analysis
+* Interactive graph visualization
+* Connects assets, documents, personnel, and regulations
+* Enables impact analysis and relationship discovery
 
 ---
 
 ## 🏗 System Architecture
 
 <p align="center">
-  <img src="assets/architecture.png" width="850">
+  <img src="assets/architecture-diagram.png" width="900">
 </p>
-
-> Replace the image above with your system architecture diagram.
 
 ---
 
 ## 🎬 Prototype Demonstration
 
 <p align="center">
-  <img src="assets/demo.png" width="850">
+  <img src="assets/demo.png" width="900">
 </p>
 
-**Demo Video:** Add your YouTube or Drive link here.
+**Demo Video:**
+https://drive.google.com/file/d/15YOZcldR2UUXLzfcC55wtvXxFLIuQHvH/view
+
+---
+
+## ⚙️ Technology Stack
+
+| Layer    | Technologies                             |
+| -------- | ---------------------------------------- |
+| Frontend | HTML5, CSS3, JavaScript, D3.js           |
+| Backend  | Node.js, Express.js                      |
+| AI Layer | RAG, Entity Extraction, Knowledge Graphs |
+| APIs     | REST APIs                                |
 
 ---
 
@@ -91,54 +85,26 @@ These documents often remain siloed across departments, making knowledge retriev
 ```text
 asset-brain/
 │
+├── assets/
+│   ├── architecture-diagram.png
+│   └── demo.png
+│
 ├── backend/
 │   ├── server.js
 │   ├── package.json
 │   └── src/
-│       ├── data/
-│       ├── routes/
-│       └── utils/
 │
-└── frontend/
-    ├── index.html
-    ├── css/
-    └── js/
+├── frontend/
+│   ├── index.html
+│   ├── css/
+│   └── js/
+│
+└── README.md
 ```
-
----
-
-## ⚙️ Technology Stack
-
-### Backend
-
-* Node.js
-* Express.js
-* REST APIs
-
-### Frontend
-
-* HTML5
-* CSS3
-* JavaScript
-* D3.js
-
-### AI & Intelligence
-
-* Retrieval-Augmented Generation (RAG)
-* Knowledge Graph Construction
-* Entity Extraction
-* Industrial Document Intelligence
 
 ---
 
 ## 🚀 Quick Start
-
-### Clone Repository
-
-```bash
-git clone <repository-url>
-cd asset-brain/backend
-```
 
 ### Install Dependencies
 
@@ -170,82 +136,15 @@ http://localhost:8787
 
 ---
 
-## 🔄 How It Works
+## 🎯 Impact
 
-### 1. Document Ingestion
+ASSET BRAIN transforms fragmented industrial knowledge into a unified intelligence layer that helps organizations:
 
-Industrial documents are processed and analyzed for:
-
-* Equipment Tags
-* Personnel References
-* Regulatory Clauses
-* Operational Events
-
-### 2. Knowledge Graph Construction
-
-Entities and relationships are converted into a connected graph structure.
-
-### 3. Intelligent Retrieval
-
-Relevant evidence is retrieved from the document corpus.
-
-### 4. AI Reasoning Layer
-
-Specialized agents perform:
-
-* Question Answering
-* Root Cause Analysis
-* Compliance Validation
-
-### 5. Evidence-Based Response
-
-Outputs include:
-
-* Recommendations
-* Confidence Scores
-* Supporting Citations
-
----
-
-## 📊 Demo Corpus
-
-The prototype ships with a synthetic industrial dataset containing:
-
-* Equipment Registers
-* OEM Manuals
-* Maintenance Work Orders
-* Incident Reports
-* Inspection Reports
-* SOPs
-* Regulatory Documents
-* Email Escalations
-
-The architecture is designed to be easily extended to enterprise-scale document repositories.
-
----
-
-## 🎯 Innovation Highlights
-
-### Unified Industrial Knowledge Layer
-
-Combines multiple document types into a single queryable intelligence platform.
-
-### Explainable AI
-
-Every recommendation is accompanied by supporting evidence and confidence scores.
-
-### Knowledge Graph Integration
-
-Relationships between assets, documents, people, and regulations become instantly visible.
-
-### Enterprise Ready Design
-
-Supports migration to:
-
-* Vector Databases
-* Graph Databases
-* CMMS Systems
-* DMS Platforms
+* Reduce information retrieval time
+* Improve maintenance decision-making
+* Accelerate root cause investigations
+* Strengthen regulatory compliance
+* Enable explainable AI-assisted operations
 
 ---
 
@@ -253,8 +152,5 @@ Supports migration to:
 
 **priyak.dd22.cs**
 
-ET AI Hackathon 2026
-
-Problem Statement 8: AI for Industrial Knowledge Intelligence
-
-
+**ET AI Hackathon 2026**
+**Problem Statement 8 – AI for Industrial Knowledge Intelligence**
