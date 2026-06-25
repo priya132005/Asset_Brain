@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ASSET BRAIN — Unified Industrial Knowledge Intelligence</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+</head>
+<body>
+<div class="app">
+
+  <div class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">AB</div>
+      <div class="brand-text">
+        <div class="t1">ASSET BRAIN</div>
+        <div class="t2">Knowledge Intelligence</div>
+      </div>
+    </div>
+    <div class="nav" id="navList">
+      <button class="nav-item active" data-tab="dashboard"><span class="nav-num">01</span><span>Dashboard</span></button>
+      <button class="nav-item" data-tab="ingest"><span class="nav-num">02</span><span>Document Ingestion</span></button>
+      <button class="nav-item" data-tab="graph"><span class="nav-num">03</span><span>Knowledge Graph</span></button>
+      <button class="nav-item" data-tab="copilot"><span class="nav-num">04</span><span>Expert Copilot</span></button>
+      <button class="nav-item" data-tab="maint"><span class="nav-num">05</span><span>Maintenance &amp; RCA</span></button>
+      <button class="nav-item" data-tab="compliance"><span class="nav-num">06</span><span>Compliance Intel</span></button>
+    </div>
+    <div class="sidebar-foot">
+      <div><span class="pulse-dot"></span>LIVE INDEX · 8 SOURCES</div>
+      <div style="margin-top:6px;">UNIT A · REFINERY DEMO PLANT</div>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div class="tab-page active" id="page-dashboard">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Operations Brain</div>
+          <h1 class="h1">Unified Asset &amp; Operations Intelligence</h1>
+          <div class="sub">One queryable brain across P&amp;IDs, work orders, SOPs, inspections, OEM manuals, incidents and regulation — built so a field technician finds in seconds what used to take a 35%-of-the-week search.</div>
+        </div>
+        <button class="btn ghost sm" onclick="goTab('ingest')">+ Ingest a document</button>
+      </div>
+
+      <div class="hero">
+        <div class="hero-text">
+          <h2>Knowledge cliff, mapped.</h2>
+          <p>8 documents across 5 systems condensed into one live graph of equipment, people, procedures and regulation — continuously linked as new records arrive, so undocumented tribal knowledge becomes searchable institutional memory.</p>
+          <div style="margin-top:14px;"><button class="btn teal sm" onclick="goTab('graph')">Open knowledge graph →</button></div>
+        </div>
+        <svg id="heroGraph"></svg>
+      </div>
+
+      <div class="grid kpis">
+        <div class="card kpi"><div class="label">Documents indexed</div><div class="value">8</div><div class="delta up">across 5 source systems</div></div>
+        <div class="card kpi"><div class="label">Entities extracted</div><div class="value" id="kpiEntities">0</div><div class="delta">equipment · people · dates · refs</div></div>
+        <div class="card kpi"><div class="label">Compliance gaps open</div><div class="value" id="kpiGaps">—</div><div class="delta warn">run scan in Compliance Intel</div></div>
+        <div class="card kpi"><div class="label">High-risk equipment</div><div class="value" style="color:var(--red);">P-101</div><div class="delta warn">seal interval overrun</div></div>
+      </div>
+
+      <div class="grid" style="grid-template-columns:1fr; margin-top:18px;">
+        <div class="card">
+          <div class="panel-title">Why this matters</div>
+          <div class="panel-desc">Mapped from the problem brief — fragmentation compounds into downtime, safety and audit risk.</div>
+          <div class="two-col">
+            <div><div class="section-label">Search &amp; rework drag</div><div style="font-size:13px; color:var(--text-dim);">Professionals lose ~35% of working hours searching for information that already exists somewhere in the org.</div></div>
+            <div><div class="section-label">Unplanned downtime</div><div style="font-size:13px; color:var(--text-dim);">18–22% of unplanned downtime traced to maintenance decisions made without full equipment history.</div></div>
+            <div><div class="section-label">7–12 disconnected systems</div><div style="font-size:13px; color:var(--text-dim);">A typical large plant scatters drawings, work orders, SOPs and audits across that many separate tools.</div></div>
+            <div><div class="section-label">Knowledge cliff</div><div style="font-size:13px; color:var(--text-dim);">~25% of India's experienced industrial workforce retires within a decade, taking undocumented knowledge with them.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INGESTION -->
+    <div class="tab-page" id="page-ingest">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Module 02</div>
+          <h1 class="h1">Universal Document Ingestion</h1>
+          <div class="sub">Heterogeneous sources — work orders, inspections, SOPs, OEM manuals, incident reports, email, P&amp;ID lists, regulation text. Run extraction to turn raw text into structured entities feeding the graph.</div>
+        </div>
+        <button class="btn sm" id="extractAllBtn" onclick="extractAll()">⚡ Extract entities — all documents</button>
+      </div>
+      <div class="doc-list" id="docList"></div>
+    </div>
+
+    <!-- GRAPH -->
+    <div class="tab-page" id="page-graph">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Module 03</div>
+          <h1 class="h1">Unified Knowledge Graph</h1>
+          <div class="sub">Equipment, documents, people and regulation linked by co-occurrence and reference. Click a node to inspect what the brain knows about it.</div>
+        </div>
+        <button class="btn ghost sm" onclick="rebuildGraph()">↻ Rebuild from corpus</button>
+      </div>
+      <div class="kg-wrap">
+        <svg id="kgCanvas"></svg>
+        <div class="kg-side">
+          <div class="card kg-detail">
+            <div class="panel-title">Node inspector</div>
+            <div id="kgDetailBody" class="empty">Click a node in the graph to see linked documents, relationships and metadata.</div>
+          </div>
+          <div class="card" style="margin-top:14px;">
+            <div class="panel-title" style="margin-bottom:8px;">Legend</div>
+            <div class="legend">
+              <div><span class="sw" style="background:var(--accent);"></span>Document</div>
+              <div><span class="sw" style="background:var(--teal);"></span>Equipment</div>
+              <div><span class="sw" style="background:var(--amber);"></span>Person</div>
+              <div><span class="sw" style="background:#8E76FF;"></span>Regulation</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COPILOT -->
+    <div class="tab-page" id="page-copilot">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Module 04</div>
+          <h1 class="h1">Expert Knowledge Copilot</h1>
+          <div class="sub">RAG over the full corpus — retrieval is shown, not hidden. Every answer carries source citations and a confidence score.</div>
+        </div>
+      </div>
+      <div class="chat-wrap">
+        <div class="chat-log" id="chatLog"></div>
+        <div class="suggest-row">
+          <button class="suggest" onclick="askSuggested('Why does pump P-101 keep leaking?')">Why does P-101 keep leaking?</button>
+          <button class="suggest" onclick="askSuggested('What is the OEM-recommended seal replacement interval for P-101 and were we within it?')">P-101 seal interval vs OEM spec</button>
+          <button class="suggest" onclick="askSuggested('Is vessel V-203 due for a thickness inspection under OISD-105?')">Is V-203 inspection overdue?</button>
+        </div>
+        <div class="chat-input">
+          <input id="chatInput" type="text" placeholder="Ask about any equipment, procedure, incident or regulation…" onkeydown="if(event.key==='Enter')sendChat()">
+          <button class="btn" onclick="sendChat()">Ask</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAINTENANCE -->
+    <div class="tab-page" id="page-maint">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Module 05</div>
+          <h1 class="h1">Maintenance Intelligence &amp; RCA</h1>
+          <div class="sub">Fuses work orders, OEM specs, inspection findings and incident history per asset into a root-cause analysis and a forward maintenance plan.</div>
+        </div>
+      </div>
+      <div class="eq-select" id="eqSelect"></div>
+      <div id="rcaOutput"></div>
+    </div>
+
+    <!-- COMPLIANCE -->
+    <div class="tab-page" id="page-compliance">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Module 06</div>
+          <h1 class="h1">Quality &amp; Regulatory Compliance Intelligence</h1>
+          <div class="sub">Maps regulatory clauses (OISD / Factory Act / environmental norms) against current procedures, equipment state and inspection records.</div>
+        </div>
+        <button class="btn sm" id="scanBtn" onclick="runComplianceScan()">▣ Run compliance gap scan</button>
+      </div>
+      <div class="card">
+        <table class="comp-table" id="compTable">
+          <thead><tr><th style="width:120px;">Clause</th><th style="width:260px;">Requirement</th><th style="width:90px;">Status</th><th>Finding &amp; evidence</th></tr></thead>
+          <tbody id="compBody"></tbody>
+        </table>
+      </div>
+      <div id="compSummary" style="margin-top:14px;"></div>
+    </div>
+
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/graph.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
