@@ -53,7 +53,7 @@ Industrial organizations generate vast amounts of information across OEM manuals
 ## 🏗 System Architecture
 
 <p align="center">
-  <img src="assets/architecture-diagram.png" width="900">
+  <img src="frontend/assets/architecture-diagram.png" width="900">
 </p>
 
 ---
@@ -61,7 +61,7 @@ Industrial organizations generate vast amounts of information across OEM manuals
 ## 🎬 Prototype Demonstration
 
 <p align="center">
-  <img src="assets/demo.png" width="900">
+  <img src="frontend/assets/demo.png" width="900">
 </p>
 
 **Demo Video:**
