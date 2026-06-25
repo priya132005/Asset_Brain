@@ -1,88 +1,260 @@
-# ASSET BRAIN
+<div align="center">
+
+# 🧠 ASSET BRAIN
+
 ### Unified Industrial Knowledge Intelligence Platform
-**ET AI Hackathon 2026 · Problem Statement 8 · Team priyak.dd22.cs**
 
-ASSET BRAIN ingests heterogeneous industrial documents — P&IDs, work orders, SOPs, OEM manuals, inspection reports, incident reports, email archives, and regulatory text — and makes their collective intelligence queryable through one knowledge graph and four AI agents:
+**ET AI Hackathon 2026 • Problem Statement 8**
 
-- **Expert Knowledge Copilot** — RAG chat with source citations and a confidence score
-- **Maintenance Intelligence & RCA Agent** — fuses work orders, OEM specs, inspections and incidents into a root-cause analysis and predictive risk score
-- **Quality & Regulatory Compliance Intelligence** — maps regulatory clauses against procedures and records, flags gaps, and exports an audit evidence package
-- **Knowledge Graph** — a live, click-to-inspect graph linking documents, equipment, people and regulation
+Transforming fragmented industrial documents into an intelligent, queryable knowledge system powered by AI and Knowledge Graphs.
 
-This repo is a real, runnable full-stack prototype: a Node/Express backend that holds the API key and does all the reasoning calls, and a plain HTML/CSS/JS frontend that never talks to the AI provider directly.
+[🎥 Demo Video](#) • [📄 Architecture](#) • [🚀 Presentation](#)
 
-```
+</div>
+
+---
+
+## 📌 Overview
+
+Industrial organizations generate thousands of documents every year—OEM manuals, work orders, inspection reports, incident reports, SOPs, emails, and regulatory guidelines.
+
+These documents often remain siloed across departments, making knowledge retrieval slow, inefficient, and error-prone.
+
+**ASSET BRAIN** unifies these disconnected information sources into a single intelligent platform that enables engineers, operators, maintenance teams, and auditors to:
+
+* 🔍 Search organizational knowledge instantly
+* 🛠 Perform Root Cause Analysis (RCA)
+* 📋 Detect compliance gaps automatically
+* 🧠 Explore relationships through a Knowledge Graph
+* 📚 Retrieve evidence-backed answers with citations
+
+---
+
+## ✨ Key Features
+
+### 🤖 Expert Knowledge Copilot
+
+* Retrieval-Augmented Generation (RAG)
+* Source-backed answers with citations
+* Confidence scoring for transparency
+* Context-aware industrial Q&A
+
+### 🔧 Maintenance Intelligence & RCA Agent
+
+* Correlates work orders, inspections, incidents, and OEM manuals
+* Identifies probable root causes
+* Generates predictive risk assessments
+* Recommends corrective actions
+
+### 📑 Compliance Intelligence Agent
+
+* Maps regulations against operational records
+* Detects missing evidence and compliance gaps
+* Generates audit-ready findings
+* Produces structured compliance reports
+
+### 🕸 Knowledge Graph Explorer
+
+* Interactive visualization of industrial knowledge
+* Connects:
+
+  * Documents
+  * Equipment
+  * Personnel
+  * Regulatory clauses
+* Enables relationship discovery and impact analysis
+
+---
+
+## 🏗 System Architecture
+
+<p align="center">
+  <img src="assets/architecture.png" width="850">
+</p>
+
+> Replace the image above with your system architecture diagram.
+
+---
+
+## 🎬 Prototype Demonstration
+
+<p align="center">
+  <img src="assets/demo.png" width="850">
+</p>
+
+**Demo Video:** Add your YouTube or Drive link here.
+
+---
+
+## 📂 Project Structure
+
+```text
 asset-brain/
-├── backend/                  Express API server
-│   ├── server.js             entrypoint — also serves the frontend statically
-│   ├── src/
-│   │   ├── data/             demo corpus + regulatory clauses (swap for a real DB)
-│   │   ├── routes/           /api/corpus, /api/copilot, /api/maintenance, /api/compliance
-│   │   └── utils/            Anthropic API client + simple keyword retrieval
+│
+├── backend/
+│   ├── server.js
 │   ├── package.json
-│   └── .env.example
-└── frontend/                 static HTML/CSS/JS, no build step
+│   └── src/
+│       ├── data/
+│       ├── routes/
+│       └── utils/
+│
+└── frontend/
     ├── index.html
-    ├── css/styles.css
-    └── js/  config.js · api.js · graph.js · app.js
+    ├── css/
+    └── js/
 ```
 
-## Quick start
+---
+
+## ⚙️ Technology Stack
+
+### Backend
+
+* Node.js
+* Express.js
+* REST APIs
+
+### Frontend
+
+* HTML5
+* CSS3
+* JavaScript
+* D3.js
+
+### AI & Intelligence
+
+* Retrieval-Augmented Generation (RAG)
+* Knowledge Graph Construction
+* Entity Extraction
+* Industrial Document Intelligence
+
+---
+
+## 🚀 Quick Start
+
+### Clone Repository
 
 ```bash
-git clone <your-fork-url>
+git clone <repository-url>
 cd asset-brain/backend
+```
+
+### Install Dependencies
+
+```bash
 npm install
-cp .env.example .env        # then add your ANTHROPIC_API_KEY
+```
+
+### Configure Environment
+
+Create a `.env` file:
+
+```env
+ANTHROPIC_API_KEY=your_api_key
+ANTHROPIC_MODEL=claude-sonnet-4-6
+PORT=8787
+```
+
+### Run Application
+
+```bash
 npm start
 ```
 
-Open **http://localhost:8787** — the backend serves the frontend too, so that's the whole app.
+Open:
 
-Get an API key at [console.anthropic.com](https://console.anthropic.com/). Without a key, the Dashboard, Document Ingestion and Knowledge Graph tabs still work fully (entity extraction is local/deterministic); the Expert Copilot, Maintenance & RCA, and Compliance Intelligence tabs need the key since they call an LLM.
-
-## How it works
-
-1. **Ingestion** — the frontend extracts equipment tags, people, dates and regulatory references from each document with a deterministic regex pass (fast, free, auditable). This feeds the knowledge graph.
-2. **Knowledge graph** — a D3.js force-directed graph of `Document ↔ Equipment ↔ Person ↔ Regulation` nodes, built client-side from the extracted entities.
-3. **Reasoning agents** — Copilot / RCA / Compliance all follow the same pattern: the backend retrieves the relevant source documents by keyword overlap, builds a prompt that includes only that evidence, and asks the model to return **structured JSON** (answer + citations + confidence, or root cause + risk score, or compliance status + finding). The frontend renders that JSON — it never sees raw model text or your API key.
-
-## API reference
-
-| Method | Path | Body | Returns |
-|---|---|---|---|
-| GET | `/api/corpus` | – | `{ documents[], equipment[] }` |
-| GET | `/api/regulations` | – | `{ regulations[] }` |
-| POST | `/api/copilot/ask` | `{ question }` | `{ answer, citations[], confidence, sources[] }` |
-| POST | `/api/maintenance/rca` | `{ equipment }` | `{ rootCause, contributingFactors[], recommendedActions[], riskScore, riskLabel, nextInspectionRecommendation, sources[] }` |
-| POST | `/api/compliance/check` | `{ regulationId }` | `{ id, req, status, finding, evidence[] }` |
-| POST | `/api/compliance/scan` | – | `{ results[], gapCount, totalClauses }` |
-| GET | `/api/health` | – | `{ ok, hasApiKey }` |
-
-## Swapping in real data
-
-The demo ships with a synthetic 8–10 document corpus (`backend/src/data/corpus.js`) modeled on a refinery unit, so the app is fully runnable out of the box. To point it at real documents:
-
-1. Replace `backend/src/data/corpus.js` with a loader that reads from your CMMS/DMS/email export (or a database).
-2. Replace `backend/src/utils/retrieval.js`'s keyword search with a real vector index (e.g. embeddings + a vector DB) for better recall at scale.
-3. The route handlers and prompt contracts (`backend/src/routes/*.js`) don't need to change — they're already decoupled from the data source.
-
-## Deploying separately (frontend + backend on different hosts)
-
-- Deploy `backend/` to any Node host (Render, Railway, Fly.io, a VM) with `ANTHROPIC_API_KEY` set as an environment variable.
-- Deploy `frontend/` as static files (GitHub Pages, Vercel, Netlify).
-- In `frontend/js/config.js`, set `window.API_BASE` to your backend's URL, e.g. `https://asset-brain-api.onrender.com`.
-- Make sure CORS is allowed for your frontend's origin (the backend uses the permissive `cors()` default — tighten this for production).
-
-## Tech stack
-
-- **Backend**: Node.js, Express, the Anthropic Messages API
-- **Frontend**: vanilla HTML/CSS/JS, D3.js (force-directed graph), no build step or framework required
-- **Data**: in-memory demo corpus — designed to be swapped for a real document store / graph database
-
-## License
-
-MIT — see [LICENSE](LICENSE).
+```text
+http://localhost:8787
+```
 
 ---
-*Team priyak.dd22.cs · ET AI Hackathon 2026 · Problem Statement 8: AI for Industrial Knowledge Intelligence*
+
+## 🔄 How It Works
+
+### 1. Document Ingestion
+
+Industrial documents are processed and analyzed for:
+
+* Equipment Tags
+* Personnel References
+* Regulatory Clauses
+* Operational Events
+
+### 2. Knowledge Graph Construction
+
+Entities and relationships are converted into a connected graph structure.
+
+### 3. Intelligent Retrieval
+
+Relevant evidence is retrieved from the document corpus.
+
+### 4. AI Reasoning Layer
+
+Specialized agents perform:
+
+* Question Answering
+* Root Cause Analysis
+* Compliance Validation
+
+### 5. Evidence-Based Response
+
+Outputs include:
+
+* Recommendations
+* Confidence Scores
+* Supporting Citations
+
+---
+
+## 📊 Demo Corpus
+
+The prototype ships with a synthetic industrial dataset containing:
+
+* Equipment Registers
+* OEM Manuals
+* Maintenance Work Orders
+* Incident Reports
+* Inspection Reports
+* SOPs
+* Regulatory Documents
+* Email Escalations
+
+The architecture is designed to be easily extended to enterprise-scale document repositories.
+
+---
+
+## 🎯 Innovation Highlights
+
+### Unified Industrial Knowledge Layer
+
+Combines multiple document types into a single queryable intelligence platform.
+
+### Explainable AI
+
+Every recommendation is accompanied by supporting evidence and confidence scores.
+
+### Knowledge Graph Integration
+
+Relationships between assets, documents, people, and regulations become instantly visible.
+
+### Enterprise Ready Design
+
+Supports migration to:
+
+* Vector Databases
+* Graph Databases
+* CMMS Systems
+* DMS Platforms
+
+---
+
+## 👥 Team
+
+**priyak.dd22.cs**
+
+ET AI Hackathon 2026
+
+Problem Statement 8: AI for Industrial Knowledge Intelligence
+
+
